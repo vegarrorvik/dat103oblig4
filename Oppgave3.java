@@ -113,12 +113,12 @@ class Writer implements Runnable{
     @Override
     public void run() {
         for(;;){
-            SleepingTimers.sleep();
+            SleepingTimer.sleep();
 
             System.out.println("Writer " + writer + " wants to write!");
             database.acquireWriteLock(writer);
 
-            SleepingTimers.sleep();
+            SleepingTimer.sleep();
 
             database.releaseWriteLock(writer);
         }
@@ -141,12 +141,12 @@ class Reader implements Runnable{
     @Override
     public void run() {
         for(;;){
-            SleepingTimers.sleep();
+            SleepingTimer.sleep();
 
             System.out.println("Reader " + reader + " wants to read!");
             database.acquireReadLock(reader);
 
-            SleepingTimers.sleep();
+            SleepingTimer.sleep();
 
             database.releaseReadLock(reader);
         }
