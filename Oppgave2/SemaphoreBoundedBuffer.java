@@ -1,6 +1,4 @@
-package Oppgave2;
-
-public class SemaphoreBoudedBuffer{
+public class SemaphoreBoundedBuffer{
     public static void main(String args[]) {
 
         BoundedBuffer myBuffer = new BoundedBuffer();

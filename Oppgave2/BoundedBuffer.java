@@ -1,5 +1,8 @@
-package Oppgave2;
+import java.util.concurrent.Semaphore;
 
+/**
+ * Created by ady on 12/11/15.
+ */
 public class BoundedBuffer{
 
     private static final int MAX_BUFFER_SIZE = 5;
@@ -8,8 +11,8 @@ public class BoundedBuffer{
     private int nextFilledPos;
     private int numberOfItems;
 
-    private Semaphore numberOfEmpty;
-    private Semaphore numberOfFull;
+    private Semaphore indexEmpty;
+    private Semaphore indexFull;
     private Semaphore mutex;
 
     private Object[] buffer;
@@ -21,8 +24,8 @@ public class BoundedBuffer{
         nextFilledPos = 0;
 
         mutex = new Semaphore(1);
-        numberOfEmpty = new Semaphore(MAX_BUFFER_SIZE);
-        numberOfFull = new Semaphore(0);
+        indexEmpty = new Semaphore(MAX_BUFFER_SIZE);
+        indexFull = new Semaphore(0);
 
         buffer = new Object[MAX_BUFFER_SIZE];
     }
@@ -30,7 +33,7 @@ public class BoundedBuffer{
     public void add(Object item) {
 
         try{
-            numberOfEmpty.acquire();
+            indexEmpty.acquire();
             mutex.acquire();
         }
         catch (InterruptedException e) {
@@ -52,14 +55,14 @@ public class BoundedBuffer{
         }
 
         mutex.release();
-        numberOfFull.release();
+        indexFull.release();
     }
 
     public Object remove() {
         Object item;
 
         try{
-            numberOfFull.acquire();
+            indexFull.acquire();
             mutex.acquire();
         }
         catch (InterruptedException e) {
@@ -81,7 +84,7 @@ public class BoundedBuffer{
         }
 
         mutex.release();
-        numberOfEmpty.release();
+        indexEmpty.release();
         return item;
     }
 
