@@ -1,21 +1,23 @@
-package Oppgave2;
-
-public class Consumer implements Runnable{
+/**
+ * Created by ady on 12/11/15.
+ */
+public class Producer implements Runnable{
 
     private BoundedBuffer buffer;
-    private int counter;
+    private int counter = 0;
 
-    public Consumer(BoundedBuffer b) {
+    public Producer(BoundedBuffer b) {
         buffer = b;
     }
 
     public void run(){
-        while (true){
-            //System.out.println("Consumer is sleeping");
-            Sleeping.sleep();
-            //System.out.println("Consumer wants to consume");
-            counter = (Integer)buffer.remove();
-            System.out.println("Consumer consumed \"" + counter + "\"");
+        for(;;) {
+            //System.out.println("Producer is sleeping");
+            SleepingTimers.sleep();
+            //System.out.println("Producer produced \"" + counter + "\"");
+            buffer.add(counter);
+            counter++;
         }
     }
 }
+
