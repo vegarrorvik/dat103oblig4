@@ -113,12 +113,12 @@ class Writer implements Runnable{
     @Override
     public void run() {
         for(;;){
-            SleepingTimer.sleep();
+            SleepingTimers.sleep();
 
             System.out.println("Writer " + writer + " wants to write!");
             database.acquireWriteLock(writer);
 
-            SleepingTimer.sleep();
+            SleepingTimers.sleep();
 
             database.releaseWriteLock(writer);
         }
@@ -141,15 +141,42 @@ class Reader implements Runnable{
     @Override
     public void run() {
         for(;;){
-            SleepingTimer.sleep();
+            SleepingTimers.sleep();
 
             System.out.println("Reader " + reader + " wants to read!");
             database.acquireReadLock(reader);
 
-            SleepingTimer.sleep();
+            SleepingTimers.sleep();
 
             database.releaseReadLock(reader);
         }
     }
 }
 
+/**
+ * SleepingTimers, same code that is in SleepingTimers.java in the zip
+ */
+class SleepingTimers {
+
+    private static final int SLEEP_TIME = 5;
+
+    /**
+     * Sleep between zero and duration seconds.
+     */
+    public static void sleep(int duration) {
+        int sleepTime = (int) (duration * Math.random());
+        //System.out.println("SleepingTimers for " + sleepTime + " seconds");
+        try {
+            Thread.sleep(sleepTime * 1000);
+        } catch (InterruptedException e) {
+            System.out.println(e);
+        }
+    }
+
+    /**
+     * Sleep between zero and SLEEP_TIME seconds.
+     */
+    public static void sleep() {
+        sleep(SLEEP_TIME);
+    }
+}
