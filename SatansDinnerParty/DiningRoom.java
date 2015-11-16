@@ -1,5 +1,6 @@
 package SatansDinnerParty;
 
+
 /**
  * Created by Jostein on 11.11.2015.
  */
@@ -13,7 +14,11 @@ public class DiningRoom {
 
     }
 
-    public synchronized void enter(){
+    /**
+     * Metode som får filosofene til å gå inn i spisesalen
+     * slik at de kan spise.
+     */
+    public synchronized void enterDiningRoom(){
         while(vacancy == 0){
             try{
                 wait();
@@ -23,10 +28,12 @@ public class DiningRoom {
         }
     }
 
-    public synchronized void exit(){
-
+    /**
+     * Metode som får filosofene til å gå ut av spisesalen
+     * slik at andre filosofer kan gå inn og spise
+     */
+    public synchronized void exitDiningRoom(){
         vacancy++;
-        notify();
-
+        notifyAll();
     }
 }

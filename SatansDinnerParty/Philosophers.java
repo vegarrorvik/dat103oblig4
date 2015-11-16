@@ -9,7 +9,8 @@ public class Philosophers extends Thread{
     private Chopsticks c;
     private DiningRoom d;
 
-    public Philosophers(int index, int minThinkTime, int maxThinkTime, int minEatTime, int maxEatTime, Chopsticks chopsticks, DiningRoom diningroom){
+    public Philosophers(int index, int minThinkTime, int maxThinkTime, int minEatTime,
+                        int maxEatTime, Chopsticks chopsticks, DiningRoom diningroom){
         this.i = index;
         this.minThinkTime = minThinkTime;
         this.maxThinkTime = maxThinkTime;
@@ -19,9 +20,12 @@ public class Philosophers extends Thread{
         this.d = diningroom;
     }
 
+    /**
+     * Metode som får filosofene til å tenke
+     */
     public void think(){
         try{
-            System.out.println(i+1 + " Philosopher is thinking!");
+            System.out.println("Filosof " + (i+1) + " tenker");
             Thread.sleep((int)(Math.random()*(maxThinkTime - minThinkTime))+minThinkTime);
 
         }catch(InterruptedException e){
@@ -29,25 +33,33 @@ public class Philosophers extends Thread{
         }
     }
 
+    /**
+     * Metode som får filosofene til å spise
+     */
     public void eat(){
         try{
-            System.out.println(i+" Philosopher is eating!");
+            System.out.println("Filosof " + (i+1) + " spiser");
             Thread.sleep((int)(Math.random()*(maxEatTime - minEatTime))+minEatTime);
 
         }catch(InterruptedException e){
 
         }
     }
+
+    /**
+     * Metode som får filosofene til å gjøre at.
+     * Dvs. gå inn/ut av spisesalen, ta/slippe spisepinner og spise/tenke.
+     */
     public void run() {
         while (true) {
             think();
-            System.out.println("Philosopher "+ i+1 +" entering");
-            d.enter();
-            c.take(i);
+            d.enterDiningRoom();
+            System.out.println("Filosof " + (i+1) + " går inn i spisestuen");
+            c.takeChopsticks(i);
             eat();
-            c.release(i);
-            d.exit();
-            System.out.println("Philosopher "+ i+1 +" exiting");
+            c.releaseChopsticks(i);
+            d.exitDiningRoom();
+            System.out.println("Filosof " + (i+1) + " går ut av spisestuen");
         }
     }
 

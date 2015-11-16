@@ -4,17 +4,16 @@ package SatansDinnerParty;
  * Created by Jostein on 11.11.2015.
  */
 public class Main {
-    public static int N = 5;
-
     public static void main(String[] args){
-        Philosophers[] philosopher = new Philosophers[N];
-        Chopsticks chopsticks = new Chopsticks(N);
-        DiningRoom diningroom = new DiningRoom(N);
+        Philosophers[] philosopher = new Philosophers[5];
+        Chopsticks chopsticks = new Chopsticks(5);
+        DiningRoom diningroom = new DiningRoom(5);
 
-        for(int i = 0;i<N;i++)
-            philosopher[i] = new Philosophers(i,10,20,30,100,chopsticks,diningroom);
+        for (int i = 0; i < 5; i++){
+            philosopher[i] = new Philosophers(i, 200, 400, 200, 400, chopsticks, diningroom);
+        }
 
-        for(int i = 0;i<N;i++)
+        for(int i = 0;i<5;i++)
             philosopher[i].start();
 
     }
