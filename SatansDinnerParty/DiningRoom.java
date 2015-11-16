@@ -1,16 +1,12 @@
 package SatansDinnerParty;
 
-
-/**
- * Created by Jostein on 11.11.2015.
- */
 public class DiningRoom {
-    private int vacancy;
-    private int n;
+    private int availableSpaces;
+    private int numberOfPhilosophers;
 
-    public DiningRoom(int N){
-        this.n = N;
-        vacancy = n -1;
+    public DiningRoom(int philosophers){
+        this.numberOfPhilosophers = philosophers;
+        availableSpaces = numberOfPhilosophers -1;
 
     }
 
@@ -19,12 +15,12 @@ public class DiningRoom {
      * slik at de kan spise.
      */
     public synchronized void enterDiningRoom(){
-        while(vacancy == 0){
+        while(availableSpaces == 0){
             try{
                 wait();
             }catch(InterruptedException e){
             }
-            vacancy--;
+            availableSpaces--;
         }
     }
 
@@ -33,7 +29,7 @@ public class DiningRoom {
      * slik at andre filosofer kan gå inn og spise
      */
     public synchronized void exitDiningRoom(){
-        vacancy++;
+        availableSpaces++;
         notifyAll();
     }
 }

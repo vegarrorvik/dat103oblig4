@@ -1,12 +1,9 @@
 package SatansDinnerParty_v2;
 
-/**
- * Created by Jostein on 16.11.2015.
- */
 public class Philosopher extends Thread {
-    private DiningRoom diningRoom;
-    private int philosopherIndex;
     private final int SLEEPTIME = 750;
+    private int philosopherIndex;
+    private DiningRoom diningRoom;
 
     public Philosopher(DiningRoom t, int i) {
         diningRoom = t;
@@ -14,25 +11,25 @@ public class Philosopher extends Thread {
     }
 
     /**
-     * Metode som får filosofen til å tenke.
+     * Metode som får filosofen til å spise
      */
-    private void think() {
-        System.out.println("Filosof " + (philosopherIndex +1) + " tenker.");
+    private void eat() {
+        System.out.println("Filosof " + (philosopherIndex + 1) + " spiser.");
 
         try {
-            sleep(SLEEPTIME);
+            Thread.sleep(SLEEPTIME);
         } catch (InterruptedException e) {
         }
     }
 
     /**
-     * Metode som får filosofen til å spise
+     * Metode som får filosofen til å tenke.
      */
-    private void eat() {
-        System.out.println("Filosof " + (philosopherIndex +1) + " spiser.");
+    private void think() {
+        System.out.println("Filosof " + (philosopherIndex + 1) + " tenker.");
 
         try {
-            sleep(SLEEPTIME);
+            Thread.sleep(SLEEPTIME);
         } catch (InterruptedException e) {
         }
     }
@@ -43,11 +40,11 @@ public class Philosopher extends Thread {
     public void run() {
         while (true) {
             think();
-            System.out.println("Filosof " + (philosopherIndex +1) + " er sulten.");
+            System.out.println("Filosof " + (philosopherIndex + 1) + " er sulten.");
             diningRoom.takeChopsticks(philosopherIndex);
             eat();
             diningRoom.putDownChopsticks(philosopherIndex);
-            System.out.println("Filosof " + (philosopherIndex +1) + " er ferdig med å spise.");
+            System.out.println("Filosof " + (philosopherIndex + 1) + " er ferdig med å spise.");
         }
     }
 

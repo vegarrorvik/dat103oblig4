@@ -1,19 +1,16 @@
 package SatansDinnerParty_v2;
 
-/**
- * Created by Jostein on 16.11.2015.
- */
 public class Main {
-    public static void main(String args[])
-    {
+    public static void main(String args[]) {
         DiningRoom diningroom = new DiningRoom();
+        final int PHILOSOPHERS = DiningRoom.PHILOSOPHERS;
 
-        Philosopher[] philosopher = new Philosopher[DiningRoom.NUM_OF_PHILOSOPHERS];
+        Philosopher[] philosopher = new Philosopher[PHILOSOPHERS];
 
-        for (int i = 0; i < DiningRoom.NUM_OF_PHILOSOPHERS; i++)
+        for (int i = 0; i < PHILOSOPHERS; i++)
             philosopher[i] = new Philosopher(diningroom,i);
 
-        for (int i = 0; i < DiningRoom.NUM_OF_PHILOSOPHERS; i++)
+        for (int i = 0; i < PHILOSOPHERS; i++)
             philosopher[i].start();
     }
 }

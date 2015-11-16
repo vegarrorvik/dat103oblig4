@@ -1,23 +1,48 @@
 package SatansDinnerParty_v2;
 
-/**
- * Created by Jostein on 16.11.2015.
- */
 public class DiningRoom {
-    private int[] state;
-
-    public static final int NUM_OF_PHILOSOPHERS = 5;
-
+    public static final int PHILOSOPHERS = 5;
     private static final int THINKING = 0;
     private static final int HUNGRY = 1;
     private static final int EATING = 2;
     private static final int STARVING = 3;
 
-    public DiningRoom() {
-        state = new int[NUM_OF_PHILOSOPHERS];
+    private int[] philosopherState;
 
-        for (int i = 0; i < NUM_OF_PHILOSOPHERS; i++)
-            state[i] = THINKING;
+    public DiningRoom() {
+        philosopherState = new int[PHILOSOPHERS];
+
+        for (int i = 0; i < PHILOSOPHERS; i++)
+            philosopherState[i] = THINKING;
+    }
+
+    /**
+     * Metode som sjekker om en filosof sulter. Han sulter hvis han er sulten,
+     * og naboene ikke sulter.
+     * @param philosopher Filosofen som skal sjekkes
+     */
+    private void checkIfStarving(int philosopher) {
+        if (philosopherState[philosopher] == HUNGRY &&
+                philosopherState[leftNeighbor(philosopher)] != STARVING &&
+                philosopherState[rightNeighbor(philosopher)] != STARVING) {
+            philosopherState[philosopher] = STARVING;
+            System.out.println("Filosof " + (philosopher+1) + " sulter.");
+        }
+    }
+
+    /**
+     * Sjekker om en filosof har mulighet til å spise. Han har mulighet dersom
+     * han er sulten eller sulter, og naboene ikke er sultne eller sulter.
+     * @param philosopher Filosofem som skal sjekkes.
+     */
+    private void checkIfPossibleToEat(int philosopher) {
+        if (philosopherState[philosopher] == HUNGRY || philosopherState[philosopher] == STARVING){
+            if (philosopherState[leftNeighbor(philosopher)] != EATING && philosopherState[leftNeighbor(philosopher)] != STARVING &&
+                    philosopherState[rightNeighbor(philosopher)] != EATING && philosopherState[rightNeighbor(philosopher)] != STARVING){
+                philosopherState[philosopher] = EATING;
+            }
+        }
+
     }
 
     /**
@@ -26,10 +51,10 @@ public class DiningRoom {
      * @param philosopher
      */
     public synchronized void takeChopsticks(int philosopher) {
-        state[philosopher] = HUNGRY;
+        philosopherState[philosopher] = HUNGRY;
         checkIfPossibleToEat(philosopher);
 
-        while (state[philosopher] != EATING) {
+        while (philosopherState[philosopher] != EATING) {
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -43,7 +68,7 @@ public class DiningRoom {
      * @param philosopher Filosofen som legger ned spisepinnene.
      */
     public synchronized void putDownChopsticks(int philosopher) {
-        state[philosopher] = THINKING;
+        philosopherState[philosopher] = THINKING;
 
         checkIfPossibleToEat(leftNeighbor(philosopher));
         checkIfStarving(leftNeighbor(philosopher));
@@ -55,32 +80,16 @@ public class DiningRoom {
     }
 
     /**
-     * Metode som sjekker om en filosof sulter. Han sulter hvis han er sulten,
-     * og naboene ikke sulter.
-     * @param philosopher Filosofen som skal sjekkes
+     * Finner indeksverdien til naboen til høyre for en filosof
+     * @param philosopher Filosofen som skal sjekkes naboene til
+     * @return Indeksverdien til naboen til høyre.
      */
-    private void checkIfStarving(int philosopher) {
-        if (state[philosopher] == HUNGRY &&
-                state[leftNeighbor(philosopher)] != STARVING &&
-                state[rightNeighbor(philosopher)] != STARVING) {
-            state[philosopher] = STARVING;
-            System.out.println("Filosof " + (philosopher+1) + " sulter.");
+    private int rightNeighbor(int philosopher) {
+        if (philosopher == PHILOSOPHERS - 1) {
+            return 0;
+        } else {
+            return philosopher + 1;
         }
-    }
-
-    /**
-     * Sjekker om en filosof har mulighet til å spise. Han har mulighet dersom
-     * han er sulten eller sulter, og naboene ikke er sultne eller sulter.
-     * @param philosopher Filosofem som skal sjekkes.
-     */
-    private void checkIfPossibleToEat(int philosopher) {
-        if (state[philosopher] == HUNGRY || state[philosopher] == STARVING){
-            if (state[leftNeighbor(philosopher)] != EATING && state[leftNeighbor(philosopher)] != STARVING &&
-                    state[rightNeighbor(philosopher)] != EATING && state[rightNeighbor(philosopher)] != STARVING){
-                state[philosopher] = EATING;
-            }
-        }
-
     }
 
     /**
@@ -90,22 +99,9 @@ public class DiningRoom {
      */
     private int leftNeighbor(int philosopher) {
         if (philosopher == 0) {
-            return NUM_OF_PHILOSOPHERS - 1;
+            return PHILOSOPHERS - 1;
         } else {
             return philosopher - 1;
-        }
-    }
-
-    /**
-     * Finner indeksverdien til naboen til venstre for en filosof
-     * @param philosopher Filosofen som skal sjekkes naboene til
-     * @return Indeksverdien til naboen til høyre.
-     */
-    private int rightNeighbor(int philosopher) {
-        if (philosopher == NUM_OF_PHILOSOPHERS - 1) {
-            return 0;
-        } else {
-            return philosopher + 1;
         }
     }
 

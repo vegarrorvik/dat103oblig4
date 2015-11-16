@@ -1,9 +1,5 @@
 package SatansDinnerParty;
 
-
-/**
- * Created by Jostein on 11.11.2015.
- */
 public class Chopsticks {
     private int numberOfChopsticks[];
     private int N;
@@ -27,8 +23,8 @@ public class Chopsticks {
 
             }
         }
-        numberOfChopsticks[(philosopher+1)%N]--;
-        numberOfChopsticks[(Math.abs(philosopher-1))%N]--;
+        numberOfChopsticks[(philosopher+1) % N]--;
+        numberOfChopsticks[(Math.abs(philosopher-1)) % N]--;
     }
 
     /**
