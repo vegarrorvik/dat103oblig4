@@ -1,6 +1,4 @@
-/**
- * Created by ady on 12/11/15.
- */
+package Oppgave2;
 
 public class SleepingTimers {
 
