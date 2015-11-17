@@ -5,6 +5,7 @@ public class Philosopher extends Thread {
     private int philosopherIndex;
     private DiningRoom diningRoom;
 
+
     public Philosopher(DiningRoom t, int i) {
         diningRoom = t;
         philosopherIndex = i;
