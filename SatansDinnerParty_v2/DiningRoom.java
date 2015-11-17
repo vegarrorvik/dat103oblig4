@@ -70,11 +70,11 @@ public class DiningRoom {
     public synchronized void putDownChopsticks(int philosopher) {
         philosopherState[philosopher] = THINKING;
 
-        checkIfPossibleToEat(leftNeighbor(philosopher));
-        checkIfStarving(leftNeighbor(philosopher));
-
         checkIfPossibleToEat(rightNeighbor(philosopher));
         checkIfStarving(rightNeighbor(philosopher));
+
+        checkIfPossibleToEat(leftNeighbor(philosopher));
+        checkIfStarving(leftNeighbor(philosopher));
 
         notifyAll();
     }

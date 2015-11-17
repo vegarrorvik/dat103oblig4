@@ -6,7 +6,7 @@ public class DiningRoom {
 
     public DiningRoom(int philosophers){
         this.numberOfPhilosophers = philosophers;
-        availableSpaces = numberOfPhilosophers -1;
+        availableSpaces = numberOfPhilosophers - 1;
 
     }
 

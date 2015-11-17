@@ -15,7 +15,6 @@ public class Philosopher extends Thread {
      */
     private void eat() {
         System.out.println("Filosof " + (philosopherIndex + 1) + " spiser.");
-
         try {
             Thread.sleep(SLEEPTIME);
         } catch (InterruptedException e) {
@@ -27,7 +26,6 @@ public class Philosopher extends Thread {
      */
     private void think() {
         System.out.println("Filosof " + (philosopherIndex + 1) + " tenker.");
-
         try {
             Thread.sleep(SLEEPTIME);
         } catch (InterruptedException e) {
