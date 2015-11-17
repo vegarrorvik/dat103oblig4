@@ -1,3 +1,5 @@
+package Oppgave2_Book;
+
 /**
  * Created by ady on 12/11/15.
  */
@@ -7,14 +9,14 @@ public class MySemaphore {
 
     }
 
-    public int w8(int s){
+    public void w8(int s){
         while (s <=0){
 
         }
-        return s--;
+        s--;
     }
 
-    public int signal(int s){
-        return s++;
+    public void signal(int s){
+        s++;
     }
 }

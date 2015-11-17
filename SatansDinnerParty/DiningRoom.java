@@ -1,32 +1,35 @@
 package SatansDinnerParty;
 
-/**
- * Created by Jostein on 11.11.2015.
- */
 public class DiningRoom {
-    private int vacancy;
-    private int n;
+    private int availableSpaces;
+    private int numberOfPhilosophers;
 
-    public DiningRoom(int N){
-        this.n = N;
-        vacancy = n -1;
+    public DiningRoom(int philosophers){
+        this.numberOfPhilosophers = philosophers;
+        availableSpaces = numberOfPhilosophers - 1;
 
     }
 
-    public synchronized void enter(){
-        while(vacancy == 0){
+    /**
+     * Metode som får filosofene til å gå inn i spisesalen
+     * slik at de kan spise.
+     */
+    public synchronized void enterDiningRoom(){
+        while(availableSpaces == 0){
             try{
                 wait();
             }catch(InterruptedException e){
             }
-            vacancy--;
+            availableSpaces--;
         }
     }
 
-    public synchronized void exit(){
-
-        vacancy++;
-        notify();
-
+    /**
+     * Metode som får filosofene til å gå ut av spisesalen
+     * slik at andre filosofer kan gå inn og spise
+     */
+    public synchronized void exitDiningRoom(){
+        availableSpaces++;
+        notifyAll();
     }
 }

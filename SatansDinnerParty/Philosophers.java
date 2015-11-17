@@ -1,53 +1,57 @@
 package SatansDinnerParty;
 
-/**
- * Created by Jostein on 11.11.2015.
- */
 public class Philosophers extends Thread{
-    int i;
-    int minThinkTime,maxThinkTime,minEatTime,maxEatTime;
+    int index;
     private Chopsticks c;
     private DiningRoom d;
 
-    public Philosophers(int index, int minThinkTime, int maxThinkTime, int minEatTime, int maxEatTime, Chopsticks chopsticks, DiningRoom diningroom){
-        this.i = index;
-        this.minThinkTime = minThinkTime;
-        this.maxThinkTime = maxThinkTime;
-        this.minEatTime = minEatTime;
-        this.maxEatTime = maxEatTime;
-        this.c = chopsticks;
-        this.d = diningroom;
+    private final int SLEEPTIME = 750;
+
+    public Philosophers(int i, Chopsticks c, DiningRoom d){
+        this.index = i;
+        this.c =c;
+        this.d = d;
     }
 
+    /**
+     * Metode som får filosofene til å tenke
+     */
     public void think(){
         try{
-            System.out.println(i+1 + " Philosopher is thinking!");
-            Thread.sleep((int)(Math.random()*(maxThinkTime - minThinkTime))+minThinkTime);
+            System.out.println("Filosof " + (index+1) + " tenker");
+            Thread.sleep(SLEEPTIME);
 
         }catch(InterruptedException e){
 
         }
     }
 
+    /**
+     * Metode som får filosofene til å spise
+     */
     public void eat(){
         try{
-            System.out.println(i+" Philosopher is eating!");
-            Thread.sleep((int)(Math.random()*(maxEatTime - minEatTime))+minEatTime);
-
+            System.out.println("Filosof " + (index+1) + " spiser");
+            Thread.sleep(SLEEPTIME);
         }catch(InterruptedException e){
 
         }
     }
+
+    /**
+     * Metode som får filosofene til å gjøre at.
+     * Dvs. gå inn/ut av spisesalen, ta/slippe spisepinner og spise/tenke.
+     */
     public void run() {
         while (true) {
             think();
-            System.out.println("Philosopher "+ i+1 +" entering");
-            d.enter();
-            c.take(i);
+            d.enterDiningRoom();
+            System.out.println("Filosof " + (index + 1) + " går inn i spisestuen");
+            c.takeChopsticks(index);
             eat();
-            c.release(i);
-            d.exit();
-            System.out.println("Philosopher "+ i+1 +" exiting");
+            c.releaseChopsticks(index);
+            d.exitDiningRoom();
+            System.out.println("Filosof " + (index+1) + " går ut av spisestuen");
         }
     }
 
