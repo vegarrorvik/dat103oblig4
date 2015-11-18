@@ -1,41 +1,45 @@
 package SatansDinnerParty;
 
-public class Chopsticks {
-    private int numberOfChopsticks[];
-    private int N;
+/**
+ * Created by André, Vegar, Jostein, Simon
+ */
 
+public class Chopsticks {
+    private int listOfChopsticks[];
+    private int spots;
 
     public Chopsticks(int N){
-        this.N = N;
-        numberOfChopsticks = new int[N];
+        this.spots = N;
+        listOfChopsticks = new int[N];
         for(int i = 0;i<N;i++)
-            numberOfChopsticks[i] = 2;
+            listOfChopsticks[i] = 2;
     }
 
     /**
-     * Metode som får filosofene til å ta spisepinnene
-     * @param philosopher Filosofen
+     * Method that makes the philosopher take the chopsticks.
+     * He will wait until he has two of them
+     * @param philosopher The philosopher
      */
     public synchronized void takeChopsticks(int philosopher){
-        while(numberOfChopsticks[philosopher] != 2){
+        while (listOfChopsticks[philosopher] != 2){
             try{
                 wait();
             }catch(InterruptedException e){
 
             }
         }
-        numberOfChopsticks[(philosopher+1) % N]--;
-        numberOfChopsticks[(Math.abs(philosopher-1)) % N]--;
+        listOfChopsticks[(philosopher+1) % spots]--;
+        listOfChopsticks[(Math.abs(philosopher-1)) % spots]--;
 
     }
 
     /**
-     * Metode som får filosofene til å slippe spisepinnene
-     * @param philosopher Filosofen
+     * Method that makes the philosopher let go of the chopsticks
+     * @param philosopher The philosopher
      */
     public synchronized void releaseChopsticks(int philosopher){
-        numberOfChopsticks[(philosopher+1) % N]++;
-        numberOfChopsticks[(Math.abs(philosopher-1)) % N]++;
+        listOfChopsticks[(philosopher+1) % spots]++;
+        listOfChopsticks[(Math.abs(philosopher-1)) % spots]++;
         notifyAll();
     }
 }

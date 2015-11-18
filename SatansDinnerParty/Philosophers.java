@@ -1,8 +1,10 @@
 package SatansDinnerParty;
 
-import java.util.concurrent.Semaphore;
+/**
+ * Created by André, Vegar, Jostein, Simon
+ */
 
-public class Philosophers extends Thread{
+public class Philosophers extends Thread implements Runnable{
     int index;
     private Chopsticks c;
     private DiningRoom d;
@@ -16,7 +18,7 @@ public class Philosophers extends Thread{
     }
 
     /**
-     * Metode som får filosofene til å tenke
+     * Method that makes the philosopher think
      */
     public void think(){
         try{
@@ -29,7 +31,7 @@ public class Philosophers extends Thread{
     }
 
     /**
-     * Metode som får filosofene til å spise
+     * Method that makes the philosopher eat
      */
     public void eat(){
         try{
@@ -40,10 +42,7 @@ public class Philosophers extends Thread{
         }
     }
 
-    /**
-     * Metode som får filosofene til å gjøre at.
-     * Dvs. gå inn/ut av spisesalen, ta/slippe spisepinner og spise/tenke.
-     */
+    @Override
     public void run() {
         while (true) {
             think();

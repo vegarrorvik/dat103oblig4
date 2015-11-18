@@ -1,5 +1,9 @@
 package SatansDinnerParty;
 
+/**
+ * Created by André, Vegar, Jostein, Simon
+ */
+
 public class DiningRoom {
     private int availableSpaces;
     private int numberOfPhilosophers;
@@ -11,8 +15,8 @@ public class DiningRoom {
     }
 
     /**
-     * Metode som får filosofene til å gå inn i spisesalen
-     * slik at de kan spise.
+     * Methods that makes the philosopher enter the dining room
+     * so that he can eat
      */
     public synchronized void enterDiningRoom(){
         while(availableSpaces == 0){
@@ -25,8 +29,8 @@ public class DiningRoom {
     }
 
     /**
-     * Metode som får filosofene til å gå ut av spisesalen
-     * slik at andre filosofer kan gå inn og spise
+     * Method that makes the philosopher exit the dining room
+     * so that other philosophers can enter and eat
      */
     public synchronized void exitDiningRoom(){
         availableSpaces++;

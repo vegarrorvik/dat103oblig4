@@ -1,5 +1,9 @@
 package SatansDinnerParty;
 
+/**
+ * Created by André, Vegar, Jostein, Simon
+ */
+
 public class Main {
     public static void main(String[] args){
         Philosophers[] philosopher = new Philosophers[5];
