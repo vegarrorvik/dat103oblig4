@@ -1,11 +1,10 @@
-package Oppgave2_Book;
+package MyBuffer;
 
 import JavaBuffer.BoundedBuffer;
 
 /**
  * Created by ady on 12/11/15.
  */
-
 class MyConsumer implements Runnable{
 
     private MyBoundedBuffer buffer;

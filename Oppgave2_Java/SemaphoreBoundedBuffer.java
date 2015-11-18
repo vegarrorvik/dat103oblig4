@@ -1,4 +1,4 @@
-package Oppgave2_Java;
+package JavaBuffer;
 
 public class SemaphoreBoundedBuffer{
     public static void main(String args[]) {

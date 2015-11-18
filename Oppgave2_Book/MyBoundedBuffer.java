@@ -1,4 +1,4 @@
-package Oppgave2_Book;
+package MyBuffer;
 
 /**
  * Created by ady on 12/11/15.
@@ -15,8 +15,6 @@ public class MyBoundedBuffer {
 
     private Object[] buffer;
 
-    int resourses = 1;
-
     public MyBoundedBuffer() {
 
         numberOfItems = 0;
@@ -24,12 +22,12 @@ public class MyBoundedBuffer {
         nextFilledPos = 0;
 
         buffer = new Object[MAX_BUFFER_SIZE];
-        mutex = new MySemaphore();
+        mutex = new MySemaphore(1);
     }
 
     public void add(Object item) {
 
-        mutex.w8(resourses);
+        mutex.w8();
 
         if(numberOfItems < MAX_BUFFER_SIZE) {
 
@@ -46,14 +44,14 @@ public class MyBoundedBuffer {
                         + "\", number of items in buffer is " + numberOfItems);
             }
         }
-        mutex.signal(resourses);
+        mutex.signal();
     }
 
     public Object remove() {
         if(numberOfItems > 0) {
             Object item;
 
-            mutex.w8(resourses);
+            mutex.w8();
             --numberOfItems;
             item = buffer[nextFilledPos];
             nextFilledPos = (nextFilledPos + 1) % MAX_BUFFER_SIZE;
@@ -67,7 +65,7 @@ public class MyBoundedBuffer {
                         + "\", number of items in buffer is " + numberOfItems);
             }
 
-            mutex.signal(resourses);
+            mutex.signal();
             return item;
         }
         return null;

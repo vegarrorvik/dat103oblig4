@@ -1,4 +1,4 @@
-package Oppgave2_Java;
+package JavaBuffer;
 
 /**
  * Created by ady on 12/11/15.

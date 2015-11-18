@@ -1,4 +1,4 @@
-package Oppgave2_Java;
+package JavaBuffer;
 
 import java.util.concurrent.Semaphore;
 

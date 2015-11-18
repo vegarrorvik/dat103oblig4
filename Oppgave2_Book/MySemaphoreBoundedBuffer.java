@@ -1,4 +1,4 @@
-package Oppgave2_Book;
+package MyBuffer;
 
 public class MySemaphoreBoundedBuffer {
     public static void main(String args[]) {

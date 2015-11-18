@@ -1,4 +1,4 @@
-package Oppgave2_Book;
+package MyBuffer;
 
 /**
  * Created by ady on 12/11/15.
