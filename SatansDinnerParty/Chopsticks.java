@@ -4,6 +4,7 @@ public class Chopsticks {
     private int numberOfChopsticks[];
     private int N;
 
+
     public Chopsticks(int N){
         this.N = N;
         numberOfChopsticks = new int[N];
@@ -25,6 +26,7 @@ public class Chopsticks {
         }
         numberOfChopsticks[(philosopher+1) % N]--;
         numberOfChopsticks[(Math.abs(philosopher-1)) % N]--;
+
     }
 
     /**
@@ -32,8 +34,8 @@ public class Chopsticks {
      * @param philosopher Filosofen
      */
     public synchronized void releaseChopsticks(int philosopher){
-        numberOfChopsticks[(philosopher+1)%N]++;
-        numberOfChopsticks[(Math.abs(philosopher-1))%N]++;
+        numberOfChopsticks[(philosopher+1) % N]++;
+        numberOfChopsticks[(Math.abs(philosopher-1)) % N]++;
         notifyAll();
     }
 }

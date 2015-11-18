@@ -42,13 +42,12 @@ public class DiningRoom {
                 philosopherState[philosopher] = EATING;
             }
         }
-
     }
 
     /**
      * Metode som får filosofen til å plukke opp spisepinnene.
      * Plukker dem opp såfremt han har mulighet til å spise.
-     * @param philosopher
+     * @param philosopher Filosofen som skal ta spisepinnene
      */
     public synchronized void takeChopsticks(int philosopher) {
         philosopherState[philosopher] = HUNGRY;
@@ -60,6 +59,7 @@ public class DiningRoom {
             } catch (InterruptedException e) {
             }
         }
+
     }
 
     /**

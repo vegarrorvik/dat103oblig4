@@ -1,5 +1,7 @@
 package SatansDinnerParty;
 
+import java.util.concurrent.Semaphore;
+
 public class Philosophers extends Thread{
     int index;
     private Chopsticks c;
